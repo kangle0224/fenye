@@ -16,11 +16,18 @@ def index(request):
 
     return render(request, 'index.html', {"user_list": data})
 
+class CustomPaginator(Paginator):
+    # 此函数未完成，重点关注自定义分页
+    def __init__(self, current_page, per_page_num, *args, **kwargs):
+        super(CustomPaginator, self).__init__(*args, **kwargs)
 
+    def page_num_range(self):
+        # 返回页码起始位置
+        return range(1,12)
 def index1(request):
     current_page = request.GET.get('p')
     # 数据源 每页10条数据
-    paginator = Paginator(USER_LIST, 10)
+    paginator = CustomPaginator(USER_LIST, 10)
     # per_page: 每页显示条目数量
     # count:    数据总个数
     # num_pages:总页数
