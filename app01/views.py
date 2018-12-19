@@ -49,3 +49,13 @@ def index1(request):
         posts = paginator.page(paginator.num_pages)
 
     return render(request, 'index1.html', {'posts': posts})
+
+def index2(request):
+    from app01.pager import Pagination
+    current_page = request.GET.get('p')
+    obj = Pagination(666, current_page)
+    data_list = USER_LIST[obj.start(): obj.end()]
+
+    return render(request, 'index2.html', {'data': data_list,
+                                           'page_obj': obj})
+
